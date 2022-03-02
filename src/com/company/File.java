@@ -9,7 +9,7 @@ public class File {
     }
 
     public static void FileRead() throws IOException{
-        try (BufferedReader in = new BufferedReader(new FileReader("dictionaries/File1.txt"))) {
+        try (BufferedReader in = new BufferedReader(new FileReader("resources/File1.txt"))) {
             String line;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
@@ -18,7 +18,7 @@ public class File {
     }
 
     public static void AddFile(){
-        String filePath = "dictionaries/File1.txt";
+        String filePath = "resources/File1.txt";
 
         Scanner in = new Scanner(System.in);
         System.out.print("Введите данные: ");
@@ -28,7 +28,7 @@ public class File {
         try {
             FileWriter writer = new FileWriter(filePath, true);
             BufferedWriter bufferWriter = new BufferedWriter(writer);
-            bufferWriter.write(text);
+            bufferWriter.write(text+"\r\n");
             bufferWriter.close();
         }
         catch (IOException e) {
@@ -40,7 +40,7 @@ public class File {
         Scanner in = new Scanner(System.in);
         System.out.print("Введите слово для поиска: ");
         String searchWord = in.nextLine();
-        String filePath = "dictionaries/File1.txt";
+        String filePath = "resources/File1.txt";
         FileInputStream fis = new FileInputStream(filePath);
         byte[] content = new byte[fis.available()];
         fis.read(content);
