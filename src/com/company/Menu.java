@@ -38,6 +38,7 @@ public static void action() throws IOException {
                 break;
             case 2:
                 // вызов метода 2
+                File.Delete();
                 break;
             case 3:
                 // вызов метода 3

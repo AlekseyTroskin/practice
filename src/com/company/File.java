@@ -36,7 +36,7 @@ public class File {
         }
     }
 
-    public static void Search() throws FileNotFoundException, IOException {
+    public static void Search() throws IOException {
         Scanner in = new Scanner(System.in);
         System.out.print("Введите слово для поиска: ");
         String searchWord = in.nextLine();
@@ -45,18 +45,54 @@ public class File {
         byte[] content = new byte[fis.available()];
         fis.read(content);
         fis.close();
-        String[] lines = new String(content, "Cp1251").split("\n"); // кодировку указать нужную
+        String[] lines = new String(content, "UTF8").split("\n"); // кодировку указать нужную
         int i = 1;
+        int k = 0;
         for (String line : lines) {
             String[] words = line.split(" ");
             int j = 1;
             for (String word : words) {
                 if (word.equalsIgnoreCase(searchWord)) {
-                    System.out.println("Найдено в " + i + "-й строке, " + j + "-е слово");
+                    System.out.println("слово " + word + " Найдено в " + i + "-й строке, " + j + "-е слово");
+                    k = k + 1;
                 }
                 j++;
             }
             i++;
+        }
+        if (k<1){
+            System.out.println("слово " +searchWord +" не найдено");
+        }
+    }
+
+
+    public static void Delete() throws IOException {
+        BufferedReader reader = null;
+        PrintWriter writer = null;
+        try {
+
+            File file = new File("resources/File2.txt");
+            String fileToWrite = "resources/File1.txt";
+            reader = new BufferedReader(new FileReader("resources/File1.txt"));
+            writer = new PrintWriter(new FileWriter(fileToWrite));
+            int current = 0;
+            String line;
+            while ((line = reader.readLine()) != null) {
+                int index = 1;
+                if (current != index) {
+                    writer.println(line);
+                }
+                current++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+            if (reader != null) {
+                reader.close();
+            }
         }
     }
 }
