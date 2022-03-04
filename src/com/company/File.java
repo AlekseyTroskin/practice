@@ -1,15 +1,18 @@
 package com.company;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class File {
 
-    public File(String s) {
+    public File() {
     }
 
+    private static final String PATH = "resources/File1.txt";
+
     public static void FileRead() throws IOException{
-        try (BufferedReader in = new BufferedReader(new FileReader("resources/File1.txt"))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(PATH))) {
             String line;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
@@ -18,15 +21,13 @@ public class File {
     }
 
     public static void AddFile(){
-        String filePath = "resources/File1.txt";
 
         Scanner in = new Scanner(System.in);
-        System.out.print("Введите данные: ");
         String text = in.nextLine();
 
 
         try {
-            FileWriter writer = new FileWriter(filePath, true);
+            FileWriter writer = new FileWriter(PATH, true);
             BufferedWriter bufferWriter = new BufferedWriter(writer);
             bufferWriter.write(text+"\r\n");
             bufferWriter.close();
@@ -38,14 +39,12 @@ public class File {
 
     public static void Search() throws IOException {
         Scanner in = new Scanner(System.in);
-        System.out.print("Введите слово для поиска: ");
         String searchWord = in.nextLine();
-        String filePath = "resources/File1.txt";
-        FileInputStream fis = new FileInputStream(filePath);
+        FileInputStream fis = new FileInputStream(PATH);
         byte[] content = new byte[fis.available()];
         fis.read(content);
         fis.close();
-        String[] lines = new String(content, "UTF8").split("\n"); // кодировку указать нужную
+        String[] lines = new String(content, StandardCharsets.UTF_8).split("\n"); // кодировку указать нужную
         int i = 1;
         int k = 0;
         for (String line : lines) {
@@ -66,15 +65,10 @@ public class File {
     }
 
 
-    public static void Delete() throws IOException {
-        BufferedReader reader = null;
-        PrintWriter writer = null;
-        try {
+    public static void Delete() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PATH)); PrintWriter writer = new PrintWriter(new FileWriter(PATH))) {
 
-            File file = new File("resources/File2.txt");
-            String fileToWrite = "resources/File1.txt";
-            reader = new BufferedReader(new FileReader("resources/File1.txt"));
-            writer = new PrintWriter(new FileWriter(fileToWrite));
+            //File file = new File();
             int current = 0;
             String line;
             while ((line = reader.readLine()) != null) {
@@ -86,13 +80,6 @@ public class File {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
-            if (reader != null) {
-                reader.close();
-            }
         }
     }
 }

@@ -42,10 +42,14 @@ public static void action() throws IOException {
                 break;
             case 3:
                 // вызов метода 3
+                System.out.print("Введите слово для поиска: ");
+
                 File.Search();
                 break;
             case 4:
                 // вызов метода 4
+                System.out.print("Введите данные: ");
+
                 File.AddFile();
                 break;
             case 5:
