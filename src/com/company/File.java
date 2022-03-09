@@ -1,21 +1,51 @@
 package com.company;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class File {
 
     public static HashMap<Object, String> dictionary = new HashMap<>();
     public static Scanner in = new Scanner(System.in);
-    private static final String PATH = "src/resources/File1.txt";
+    private static String pathFile;
+    //private static final String PATH = "src/resources/File1.txt";
 
-    public static void convertHashMap() throws IOException {
-        Scanner filescan = new Scanner(new FileReader(PATH));
+    public static void convertHashMap(String PATH) throws IOException {
+        pathFile = PATH;
+        Scanner filescan = new Scanner(new FileReader(File.pathFile));
         while (filescan.hasNextLine()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
         }
+    }
+
+    public static void writeHashMap() throws IOException{
+        /*try {
+
+            FileOutputStream outStream = new FileOutputStream(pathFile);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outStream);
+
+            objectOutputStream.writeObject(dictionary);
+            outStream.close();
+            System.out.println("Словарь успешно сохранён!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        Files.write(Paths.get(pathFile),
+                dictionary.entrySet().stream().map(k->k.getKey()+":"+k.getValue()).collect(Collectors.toList()),
+                StandardCharsets.UTF_8);
+
+        Files.lines(Paths.get(pathFile), StandardCharsets.UTF_8).forEach(System.out::println);
+
+        dictionary.clear();
     }
 
     public File() {
@@ -23,15 +53,12 @@ public class File {
 
 
     public static void FileRead() throws IOException{
-        try (BufferedReader in = new BufferedReader(new FileReader(PATH))) {
-            String line;
-            while ((line = in.readLine()) != null) {
                 for (HashMap.Entry entry : dictionary.entrySet()) {
                     System.out.println(entry.getKey() + ":" + entry.getValue());
                 }
-            }
-        }
+
     }
+
 
     public static void AddFile(){
 
@@ -95,8 +122,5 @@ public class File {
         System.out.print("Введите ключ значения,которое хотите удалить: ");
         String keyDel = in.nextLine();
         dictionary.remove(keyDel);
-        for (HashMap.Entry entry : dictionary.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue());
-        }
     }
 }

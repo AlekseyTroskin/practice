@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -29,10 +30,12 @@ public class Menu{
 
             switch (dictionary) {
                 case 1:
-                    action();
+                    String PATH = "src/resources/File1.txt";
+                    action(PATH);
                     break;
                 case 2:
-                    File.Delete();
+                    PATH = "src/resources/File2.txt";
+                    action(PATH);
                     break;
                 case 3:
                     System.exit(0);
@@ -43,9 +46,9 @@ public class Menu{
     }
 
 
-public static void action() throws IOException {
+public static void action(String PATH) throws IOException {
 
-    File.convertHashMap();
+    File.convertHashMap(PATH);
 
     int method = 0;
     String choice ="";
@@ -86,6 +89,7 @@ public static void action() throws IOException {
                 File.AddFile();
                 break;
             case 5:
+                File.writeHashMap();
                 select();
         }
     }
