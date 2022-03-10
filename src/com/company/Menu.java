@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -75,21 +74,22 @@ public static void action(String PATH) throws IOException {
                 File.FileRead();
                 break;
             case 2:
-                // вызов метода 2
+                // вызов метода для удаления записи в словаре
                 File.Delete();
                 break;
             case 3:
-                // вызов метода 3
-                System.out.print("Введите слово для поиска: ");
+                // вызов метода для поиска записи по ключу
+                System.out.print("Введите ключ для поиска записи: ");
 
                 File.Search();
                 break;
             case 4:
-                // вызов метода 4
+                // вызов метода для добавления записи в словарь
                 File.AddFile();
                 break;
             case 5:
-                File.writeHashMap();
+                //Запись из HashMap в txt
+                File.writeTxt();
                 select();
         }
     }
