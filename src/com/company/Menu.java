@@ -92,7 +92,7 @@ public static void action(String PATH) throws IOException {
                 break;
             case 5:
                 //Запись из HashMap в txt
-                File.writeTxt();
+                //File.writeTxt();
                 select();
         }
     }

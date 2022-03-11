@@ -17,6 +17,7 @@ public class File {
     private static String pathFile;
 
     public static void convertHashMap(String PATH) throws IOException {
+        dictionary.clear();
         pathFile = PATH;
         Scanner filescan = new Scanner(new FileReader(File.pathFile));
         while (filescan.hasNextLine()) {
@@ -32,7 +33,7 @@ public class File {
 
         Files.lines(Paths.get(pathFile), StandardCharsets.UTF_8).forEach(System.out::println);
 
-        dictionary.clear();
+        //dictionary.clear();
     }
 
     public static void FileRead() {
@@ -41,7 +42,7 @@ public class File {
                 }
     }
 
-    public static void AddFile() {
+    public static void AddFile() throws IOException {
          String regex1 = "[A-Za-z]{1,4}";
          String regex2 = "\\d{1,5}";
 
@@ -72,7 +73,7 @@ public class File {
         else {
             System.out.println("Неправильный ключ!");
         }
-
+        writeTxt();
     }
 
     public static void Search() {
@@ -87,7 +88,7 @@ public class File {
     }
 
 
-    public static void Delete() {
+    public static void Delete() throws IOException {
         System.out.print("Введите ключ значения,которое хотите удалить: ");
         String keyDel = in.nextLine();
         String keySearch = dictionary.get(keyDel);
@@ -97,5 +98,6 @@ public class File {
         else {
             System.out.println("Значения с таким ключом не найдено!");
         }
+        writeTxt();
     }
 }
