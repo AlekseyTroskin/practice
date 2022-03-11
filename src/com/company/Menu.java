@@ -9,6 +9,7 @@ public class Menu{
 
 
     public static Scanner in = new Scanner(System.in);
+    public static int d;
 
 
     public static void select() throws IOException{
@@ -30,10 +31,12 @@ public class Menu{
             switch (dictionary) {
                 case 1:
                     String PATH = "src/resources/File1.txt";
+                    d = 1;
                     action(PATH);
                     break;
                 case 2:
                     PATH = "src/resources/File2.txt";
+                    d = 2;
                     action(PATH);
                     break;
                 case 3:

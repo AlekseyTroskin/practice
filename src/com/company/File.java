@@ -5,9 +5,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import static com.company.Menu.d;
 
 public class File {
 
@@ -40,15 +41,33 @@ public class File {
                 }
     }
 
-    public static void AddFile(){
+    public static void AddFile() {
+         String regex1 = "[A-Za-z]{1,4}";
+         String regex2 = "\\d{1,5}";
+
         System.out.println("Введите ключ: ");
         String key = in.nextLine();
-        int i = 0;
+        int i;
         i = Integer.parseInt(key);
         if (i > 0){
             System.out.println("Введите значение: ");
             String value = in.nextLine();
-            dictionary.put(key,value);
+            if (d == 1){
+                if(value.matches(regex1)){
+                    dictionary.put(key,value);
+                    System.out.println("Запись успешно добавлена!");
+                }
+                else {
+                    System.out.println("Значение неверное!");
+                }
+            } else {
+                    if (value.matches(regex2)) {
+                        dictionary.put(key, value);
+                        System.out.println("Запись успешно добавлена!");
+                    } else {
+                        System.out.println("Значение неверное!");
+                    }
+            }
         }
         else {
             System.out.println("Неправильный ключ!");
