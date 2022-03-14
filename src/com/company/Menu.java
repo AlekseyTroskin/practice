@@ -78,6 +78,7 @@ public static void action(String PATH) throws IOException {
                 break;
             case 2:
                 // вызов метода для удаления записи в словаре
+                System.out.println("Введите ключ: ");
                 File.Delete();
                 break;
             case 3:
@@ -88,6 +89,7 @@ public static void action(String PATH) throws IOException {
                 break;
             case 4:
                 // вызов метода для добавления записи в словарь
+                System.out.println("Введите ключ: ");
                 File.AddFile();
                 break;
             case 5:

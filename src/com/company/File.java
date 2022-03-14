@@ -24,6 +24,7 @@ public class File {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
         }
+        filescan.close();
     }
 
     public static void writeTxt() throws IOException{
@@ -32,8 +33,6 @@ public class File {
                 StandardCharsets.UTF_8);
 
         Files.lines(Paths.get(pathFile), StandardCharsets.UTF_8).forEach(System.out::println);
-
-        //dictionary.clear();
     }
 
     public static void FileRead() {
@@ -43,35 +42,39 @@ public class File {
     }
 
     public static void AddFile() throws IOException {
-         String regex1 = "[A-Za-z]{1,4}";
-         String regex2 = "\\d{1,5}";
-
-        System.out.println("Введите ключ: ");
-        String key = in.nextLine();
-        int i;
-        i = Integer.parseInt(key);
-        if (i > 0){
-            System.out.println("Введите значение: ");
-            String value = in.nextLine();
-            if (d == 1){
-                if(value.matches(regex1)){
+         String keyRegex1 = "[A-z]{4}";
+         String keyRegex2 = "\\d{5}";
+         String regex = "[А-я]+";
+         String key = in.nextLine();
+        if (d==1) {
+            if(key.matches(keyRegex1)){
+                System.out.println("Введите значение: ");
+                String value = in.nextLine();
+                if (value.matches(regex)){
                     dictionary.put(key,value);
                     System.out.println("Запись успешно добавлена!");
                 }
                 else {
-                    System.out.println("Значение неверное!");
+                    System.out.println("Неверное значение!");
                 }
-            } else {
-                    if (value.matches(regex2)) {
-                        dictionary.put(key, value);
-                        System.out.println("Запись успешно добавлена!");
-                    } else {
-                        System.out.println("Значение неверное!");
-                    }
+            }
+            else {
+                System.out.println("Ключ неверный!");
             }
         }
         else {
-            System.out.println("Неправильный ключ!");
+            if(key.matches(keyRegex2)){
+                System.out.println("Введите значение: ");
+                String value = in.nextLine();
+                if (value.matches(regex)){
+                    dictionary.put(key,value);
+                    System.out.println("Запись успешно добавлена!");
+                }
+                else System.out.println("Неверное значение!");
+            }
+            else {
+                System.out.println("Ключ неверный!");
+            }
         }
         writeTxt();
     }
