@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static com.company.Menu.d;
+import static com.company.Menu.*;
 
-public class File {
+public class FileService {
 
     public static HashMap<Object, String> dictionary = new HashMap<>();
     public static Scanner in = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class File {
     public static void convertHashMap(String PATH) throws IOException {
         dictionary.clear();
         pathFile = PATH;
-        Scanner filescan = new Scanner(new FileReader(File.pathFile));
+        Scanner filescan = new Scanner(new FileReader(FileService.pathFile));
         while (filescan.hasNextLine()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
@@ -35,21 +35,16 @@ public class File {
         Files.lines(Paths.get(pathFile), StandardCharsets.UTF_8).forEach(System.out::println);
     }
 
-    public static void FileRead() {
-                for (HashMap.Entry entry : dictionary.entrySet()) {
+    public static void fileRead() {
+                for (var entry : dictionary.entrySet()) {
                     System.out.println(entry.getKey() + ":" + entry.getValue());
                 }
     }
 
-    public static void AddFile() throws IOException {
-         String keyRegex1 = "[A-z]{4}";
-         String keyRegex2 = "\\d{5}";
+    public static void addFile(String keyRegex1, String keyRegex2) throws IOException {
          String regex = "[А-я]+";
-         String key = in.nextLine();
         if (d==1) {
             if(key.matches(keyRegex1)){
-                System.out.println("Введите значение: ");
-                String value = in.nextLine();
                 if (value.matches(regex)){
                     dictionary.put(key,value);
                     System.out.println("Запись успешно добавлена!");
@@ -64,8 +59,6 @@ public class File {
         }
         else {
             if(key.matches(keyRegex2)){
-                System.out.println("Введите значение: ");
-                String value = in.nextLine();
                 if (value.matches(regex)){
                     dictionary.put(key,value);
                     System.out.println("Запись успешно добавлена!");
@@ -79,7 +72,7 @@ public class File {
         writeTxt();
     }
 
-    public static void Search() {
+    public static void search() {
         String key = in.nextLine();
         String searchWord = dictionary.get(key);
         if (searchWord != null) {
@@ -91,8 +84,7 @@ public class File {
     }
 
 
-    public static void Delete() throws IOException {
-        System.out.print("Введите ключ значения,которое хотите удалить: ");
+    public static void delete() throws IOException {
         String keyDel = in.nextLine();
         String keySearch = dictionary.get(keyDel);
         if (keySearch != null){
@@ -102,5 +94,8 @@ public class File {
             System.out.println("Значения с таким ключом не найдено!");
         }
         writeTxt();
+    }
+
+    public void setPathFile(String pathFileStr) {
     }
 }
