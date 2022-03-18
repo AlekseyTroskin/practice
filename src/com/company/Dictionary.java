@@ -6,40 +6,25 @@ import static com.company.Menu.*;
 
 public class Dictionary implements DictionaryInt{
 
-    private HashMap<String, String> stringListHashMap = new HashMap<String, String>();
+    public static String pathFile;
+    private HashMap<String, String> stringListHashMap = new HashMap<>();
     private String regFile = null;
     private String pathFileStr = null;
     private FileService fileService = new FileService();
 
 
     @Override
-    public void add(String keyRegex1, String keyRegex2) {
+    public void add() {
         String regex = "[А-я]+";
-        if (d==1) {
-            if(key.matches(keyRegex1)){
-                if (value.matches(regex)){
-                    stringListHashMap.put(key,value);
-                    System.out.println("Запись успешно добавлена!");
-                }
-                else {
-                    System.out.println("Неверное значение!");
-                }
+        if (key.matches(regFile)) {
+            if (value.matches(regex)) {
+                stringListHashMap.put(key, value);
+                System.out.println("Запись успешно добавлена!");
+            } else {
+                System.out.println("Неверное значение!");
             }
-            else {
-                System.out.println("Ключ неверный!");
-            }
-        }
-        else {
-            if(key.matches(keyRegex2)){
-                if (value.matches(regex)){
-                    stringListHashMap.put(key,value);
-                    System.out.println("Запись успешно добавлена!");
-                }
-                else System.out.println("Неверное значение!");
-            }
-            else {
-                System.out.println("Ключ неверный!");
-            }
+        } else {
+            System.out.println("Ключ неверный!");
         }
     }
 
@@ -74,7 +59,7 @@ public class Dictionary implements DictionaryInt{
     @Override
     public void setFile(String pathFile) {
          pathFileStr = pathFile;
-         fileService.setPathFile(pathFileStr);
+         fileService.setPathFile();
     }
 
     @Override

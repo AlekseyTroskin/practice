@@ -8,7 +8,6 @@ public class Menu{
 
 
     public static Scanner in = new Scanner(System.in);
-    public static int d;
     public static String select;
     public static String choice;
     public static String key;
@@ -19,7 +18,7 @@ public class Menu{
     private static DictionaryInt dictionaryInt;
 
 
-    public static void select(String keyRegex1, String keyRegex2) throws IOException{
+    public static void select() throws IOException{
         System.out.println("Выберите словарь");
         select = "";
         String lim = "3";
@@ -37,17 +36,18 @@ public class Menu{
 
             switch (dictionary) {
                 case 1:
-
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File1.txt");
                     dictionaryInt.setRegFile("[A-z]{4}");
-                    action(keyRegex1, keyRegex2);
+                    FileService.convertHashMap();
+                    action();
                     break;
                 case 2:
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File2.txt");
                     dictionaryInt.setRegFile("\\d{5}");
-                    action(keyRegex1, keyRegex2);
+                    FileService.convertHashMap();
+                    action();
                     break;
                 case 3:
                     System.out.println("До свидания!");
@@ -59,7 +59,7 @@ public class Menu{
     }
 
 
-public static void action(String keyRegex1, String keyRegex2) throws IOException {
+public static void action() throws IOException {
 
 
     int method = 0;
@@ -88,16 +88,12 @@ public static void action(String keyRegex1, String keyRegex2) throws IOException
                 for (HashMap.Entry entry : stringListHashMap.entrySet()) {
                     System.out.println(entry.getKey() + ":" + entry.getValue());
                 }
-
-                FileService.fileRead();
                 break;
             case 2:
                 // вызов метода для удаления записи в словаре
                 System.out.print("Введите ключ значения,которое хотите удалить: ");
                 key = in.nextLine();
                 dictionaryInt.remove(key);
-
-                FileService.delete();
                 break;
             case 3:
                 // вызов метода для поиска записи по ключу
@@ -112,12 +108,12 @@ public static void action(String keyRegex1, String keyRegex2) throws IOException
                 System.out.println("Введите значение: ");
                 value = in.nextLine();
 
-                dictionaryInt.add(keyRegex1, keyRegex2);
+                dictionaryInt.add();
                 break;
             case 5:
                 //Запись из HashMap в txt
-                //File.writeTxt();
-                select(keyRegex1, keyRegex2);
+                FileService.writeTxt();
+                select();
         }
     }
 }

@@ -8,18 +8,16 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static com.company.Menu.*;
-
 public class FileService {
 
-    public static HashMap<Object, String> dictionary = new HashMap<>();
-    public static Scanner in = new Scanner(System.in);
-    private static String pathFile;
+    public static HashMap<String, String> dictionary = new HashMap<>();
+    //public static Scanner in = new Scanner(System.in);
+    private static String pathToFile;
 
-    public static void convertHashMap(String PATH) throws IOException {
+    public static void convertHashMap() throws IOException {
         dictionary.clear();
-        pathFile = PATH;
-        Scanner filescan = new Scanner(new FileReader(FileService.pathFile));
+        pathToFile = Dictionary.pathFile;
+        Scanner filescan = new Scanner(new FileReader(FileService.pathToFile));
         while (filescan.hasNextLine()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
@@ -28,14 +26,17 @@ public class FileService {
     }
 
     public static void writeTxt() throws IOException{
-        Files.write(Paths.get(pathFile),
+        Files.write(Paths.get(pathToFile),
                 dictionary.entrySet().stream().map(k->k.getKey()+":"+k.getValue()).collect(Collectors.toList()),
                 StandardCharsets.UTF_8);
 
-        Files.lines(Paths.get(pathFile), StandardCharsets.UTF_8).forEach(System.out::println);
+        Files.lines(Paths.get(pathToFile), StandardCharsets.UTF_8).forEach(System.out::println);
     }
 
-    public static void fileRead() {
+    public void setPathFile() {
+    }
+
+   /* public static void fileRead() {
                 for (var entry : dictionary.entrySet()) {
                     System.out.println(entry.getKey() + ":" + entry.getValue());
                 }
@@ -94,8 +95,5 @@ public class FileService {
             System.out.println("Значения с таким ключом не найдено!");
         }
         writeTxt();
-    }
-
-    public void setPathFile(String pathFileStr) {
-    }
+    }*/
 }
