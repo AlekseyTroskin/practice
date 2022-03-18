@@ -6,7 +6,6 @@ import static com.company.Menu.*;
 
 public class Dictionary implements DictionaryInt{
 
-    public static String pathFile;
     private HashMap<String, String> stringListHashMap = new HashMap<>();
     private String regFile = null;
     private String pathFileStr = null;
@@ -65,5 +64,13 @@ public class Dictionary implements DictionaryInt{
     @Override
     public void setRegFile(String regFileStr) {
         regFile = regFileStr;
+    }
+
+    public String getPathFileStr() {
+        return pathFileStr;
+    }
+
+    public void setPathFileStr(String pathFileStr) {
+        this.pathFileStr = pathFileStr;
     }
 }
