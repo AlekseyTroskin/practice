@@ -12,12 +12,18 @@ public class FileService {
 
     public static HashMap<String, String> dictionary = new HashMap<>();
     //public static Scanner in = new Scanner(System.in);
-    private static String pathToFile;
+    private static String pathFiles;
+
+
+    public void setPathFile() {
+        //pathFiles = Dictionary.pathFileStr;
+    }
+
 
     public static void convertHashMap() throws IOException {
         dictionary.clear();
-        pathToFile = Dictionary.pathFile;
-        Scanner filescan = new Scanner(new FileReader(FileService.pathToFile));
+        pathFiles = Dictionary.pathFileStr;
+        Scanner filescan = new Scanner(new FileReader(FileService.pathFiles));
         while (filescan.hasNextLine()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
@@ -26,15 +32,13 @@ public class FileService {
     }
 
     public static void writeTxt() throws IOException{
-        Files.write(Paths.get(pathToFile),
+        Files.write(Paths.get(pathFiles),
                 dictionary.entrySet().stream().map(k->k.getKey()+":"+k.getValue()).collect(Collectors.toList()),
                 StandardCharsets.UTF_8);
 
-        Files.lines(Paths.get(pathToFile), StandardCharsets.UTF_8).forEach(System.out::println);
+        Files.lines(Paths.get(pathFiles), StandardCharsets.UTF_8).forEach(System.out::println);
     }
 
-    public void setPathFile() {
-    }
 
    /* public static void fileRead() {
                 for (var entry : dictionary.entrySet()) {

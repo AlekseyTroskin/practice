@@ -6,9 +6,10 @@ import static com.company.Menu.*;
 
 public class Dictionary implements DictionaryInt{
 
+    //public static String pathToFile;
     private HashMap<String, String> stringListHashMap = new HashMap<>();
     private String regFile = null;
-    private String pathFileStr = null;
+    public static String pathFileStr;
     private FileService fileService = new FileService();
 
 

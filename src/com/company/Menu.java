@@ -105,6 +105,7 @@ public static void action() throws IOException {
                 // вызов метода для добавления записи в словарь
                 System.out.println("Введите ключ: ");
                 key = in.nextLine();
+                System.in.read();
                 System.out.println("Введите значение: ");
                 value = in.nextLine();
 
