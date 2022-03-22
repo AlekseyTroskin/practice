@@ -1,20 +1,26 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static com.company.Menu.*;
 
 public class Dictionary implements DictionaryInt{
 
-    //public static String pathToFile;
     private HashMap<String, String> stringListHashMap = new HashMap<>();
     private String regFile = null;
-    public static String pathFileStr;
-    private FileService fileService = new FileService();
+    private String pathFileStr = null;
+    private final FileService fileService = new FileService();
+
+    public HashMap<String,String> dictionaryHashMap () throws IOException {
+        stringListHashMap = FileService.convertHashMap();
+        return stringListHashMap;
+    }
 
 
     @Override
-    public void add() {
+    public void add() throws IOException {
         String regex = "[А-я]+";
         if (key.matches(regFile)) {
             if (value.matches(regex)) {
@@ -26,10 +32,11 @@ public class Dictionary implements DictionaryInt{
         } else {
             System.out.println("Ключ неверный!");
         }
+        FileService.writeTxt(stringListHashMap);
     }
 
     @Override
-    public void remove(String key) {
+    public void remove(String key) throws IOException {
         String keyDel = in.nextLine();
         String keySearch = stringListHashMap.get(keyDel);
         if (keySearch != null){
@@ -38,17 +45,13 @@ public class Dictionary implements DictionaryInt{
         else {
             System.out.println("Значения с таким ключом не найдено!");
         }
+        FileService.writeTxt(stringListHashMap);
     }
 
     @Override
     public void search(String key) {
         searchWord = stringListHashMap.get(key);
-        if (searchWord != null) {
-            System.out.println(searchWord);
-        }
-        else {
-            System.out.println("Значения с таким ключом не найдено!");
-        }
+        System.out.println(Objects.requireNonNullElse(searchWord, "Значения с таким ключом не найдено!"));
     }
 
     @Override

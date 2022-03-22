@@ -1,5 +1,7 @@
 package com.company;
 
+import org.w3c.dom.DOMStringList;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,33 +12,40 @@ import java.util.stream.Collectors;
 
 public class FileService {
 
-    public static HashMap<String, String> dictionary = new HashMap<>();
-    //public static Scanner in = new Scanner(System.in);
+
     private static String pathFiles;
+    private static final Menu menu = new Menu();
 
 
-    public void setPathFile() {
-        //pathFiles = Dictionary.pathFileStr;
+
+    public static void setPathToFile(String pathToFile) {
+        pathFiles = pathToFile;
+        menu.setPathFile();
     }
 
 
-    public static void convertHashMap() throws IOException {
-        dictionary.clear();
-        pathFiles = Dictionary.pathFileStr;
+    public static HashMap<String,String> convertHashMap() throws IOException {
+        //dictionary.clear();
+        HashMap<String, String> dictionary = new HashMap<>();
         Scanner filescan = new Scanner(new FileReader(FileService.pathFiles));
         while (filescan.hasNextLine()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
         }
         filescan.close();
+        return dictionary;
     }
 
-    public static void writeTxt() throws IOException{
+    public static void writeTxt(HashMap<String, String> stringListHashMap) throws IOException{
+
         Files.write(Paths.get(pathFiles),
-                dictionary.entrySet().stream().map(k->k.getKey()+":"+k.getValue()).collect(Collectors.toList()),
+                stringListHashMap.entrySet().stream().map(k->k.getKey()+":"+k.getValue()).collect(Collectors.toList()),
                 StandardCharsets.UTF_8);
 
         Files.lines(Paths.get(pathFiles), StandardCharsets.UTF_8).forEach(System.out::println);
+    }
+
+    public void setPathFile() {
     }
 
 

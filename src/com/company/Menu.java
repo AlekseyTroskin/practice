@@ -39,6 +39,7 @@ public class Menu{
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File1.txt");
                     dictionaryInt.setRegFile("[A-z]{4}");
+                    FileService.setPathToFile("src/resources/File1.txt");
                     FileService.convertHashMap();
                     action();
                     break;
@@ -46,6 +47,7 @@ public class Menu{
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File2.txt");
                     dictionaryInt.setRegFile("\\d{5}");
+                    FileService.setPathToFile("src/resources/File2.txt");
                     FileService.convertHashMap();
                     action();
                     break;
@@ -113,10 +115,13 @@ public static void action() throws IOException {
                 break;
             case 5:
                 //Запись из HashMap в txt
-                FileService.writeTxt();
+                //FileService.writeTxt();
                 select();
         }
     }
 }
+
+    public void setPathFile() {
+    }
 }
 
