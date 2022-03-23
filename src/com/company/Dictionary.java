@@ -8,19 +8,17 @@ import static com.company.Menu.*;
 
 public class Dictionary implements DictionaryInt{
 
-    private HashMap<String, String> stringListHashMap = new HashMap<>();
+    private static HashMap<String, String> stringListHashMap = new HashMap<>();
     private String regFile = null;
-    private String pathFileStr = null;
     private final FileService fileService = new FileService();
 
-    public HashMap<String,String> dictionaryHashMap () throws IOException {
+    public static void dictionaryHashMap() throws IOException {
         stringListHashMap = FileService.convertHashMap();
-        return stringListHashMap;
     }
 
 
     @Override
-    public void add() throws IOException {
+    public void add(String key, String value) throws IOException {
         String regex = "[А-я]+";
         if (key.matches(regFile)) {
             if (value.matches(regex)) {
@@ -37,10 +35,10 @@ public class Dictionary implements DictionaryInt{
 
     @Override
     public void remove(String key) throws IOException {
-        String keyDel = in.nextLine();
-        String keySearch = stringListHashMap.get(keyDel);
+        String keySearch = stringListHashMap.get(key);
             if (keySearch != null){
-                stringListHashMap.remove(keyDel);
+                stringListHashMap.remove(key);
+                System.out.println("Запись успешно удалена!");
             }
             else {
                 System.out.println("Значения с таким ключом не найдено!");
@@ -62,8 +60,7 @@ public class Dictionary implements DictionaryInt{
 
     @Override
     public void setFile(String pathFile) {
-         pathFileStr = pathFile;
-         fileService.setPathFile();
+        fileService.setPathFile();
     }
 
     @Override
@@ -71,11 +68,4 @@ public class Dictionary implements DictionaryInt{
         regFile = regFileStr;
     }
 
-    public String getPathFileStr() {
-        return pathFileStr;
-    }
-
-    public void setPathFileStr(String pathFileStr) {
-        this.pathFileStr = pathFileStr;
-    }
 }

@@ -7,20 +7,15 @@ import java.util.*;
 public class Menu{
 
 
-    public static Scanner in = new Scanner(System.in);
-    public static String select;
-    public static String choice;
-    public static String key;
-    public static String value;
+
     public static String searchWord;
-
-
     private static DictionaryInt dictionaryInt;
 
 
     public static void select() throws IOException{
+        Scanner in = new Scanner(System.in);
         System.out.println("Выберите словарь");
-        select = "";
+        String select = "";
         String lim = "3";
         int dictionary = 0;
         while (!Objects.equals(lim, select)) {
@@ -35,25 +30,26 @@ public class Menu{
             }
 
             switch (dictionary) {
-                case 1:
+                case 1 -> {
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File1.txt");
                     dictionaryInt.setRegFile("[A-Za-z]{4}");
                     FileService.setPathToFile("src/resources/File1.txt");
                     FileService.convertHashMap();
                     action();
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File2.txt");
                     dictionaryInt.setRegFile("\\d{5}");
                     FileService.setPathToFile("src/resources/File2.txt");
                     FileService.convertHashMap();
                     action();
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("До свидания!");
                     System.exit(0);
+                }
             }
         }
 
@@ -63,10 +59,13 @@ public class Menu{
 
 public static void action() throws IOException {
 
-
+    Scanner in = new Scanner(System.in);
+    Dictionary.dictionaryHashMap();
     int method = 0;
     String limit = "5";
-    choice = "";
+    String choice = "";
+    String key;
+    String value;
 
 
         while (!Objects.equals(limit, choice)){
@@ -83,39 +82,42 @@ public static void action() throws IOException {
             System.out.println("Неверный ввод");
         }
 
-        switch (method){
-            case 1:
-                // вызов метода просмотра словарей
-                HashMap<String, String> stringListHashMap = dictionaryInt.input();
-                for (HashMap.Entry entry : stringListHashMap.entrySet()) {
-                    System.out.println(entry.getKey() + ":" + entry.getValue());
+            switch (method) {
+                case 1 -> {
+                    // вызов метода просмотра словарей
+                    HashMap<String, String> stringListHashMap = dictionaryInt.input();
+                    for (HashMap.Entry entry : stringListHashMap.entrySet()) {
+                        System.out.println(entry.getKey() + ":" + entry.getValue());
+                    }
                 }
-                break;
-            case 2:
-                // вызов метода для удаления записи в словаре
-                System.out.print("Введите ключ значения,которое хотите удалить: ");
-                key = in.nextLine();
-                dictionaryInt.remove(key);
-                break;
-            case 3:
-                // вызов метода для поиска записи по ключу
-                System.out.print("Введите ключ для поиска записи: ");
-                key = in.nextLine();
-                dictionaryInt.search(key);
-                break;
-            case 4:
-                // вызов метода для добавления записи в словарь
-                System.out.println("Введите ключ: ");
-                key = in.nextLine();
-                System.out.println("Введите значение: ");
-                value = in.nextLine();
-                dictionaryInt.add();
-                break;
-            case 5:
-                //Запись из HashMap в txt
-                //FileService.writeTxt();
-                select();
-        }
+                case 2 -> {
+                    // вызов метода для удаления записи в словаре
+                    Scanner del = new Scanner(System.in);
+                    System.out.print("Введите ключ значения,которое хотите удалить: ");
+                    key = del.nextLine();
+                    dictionaryInt.remove(key);
+                }
+                case 3 -> {
+                    // вызов метода для поиска записи по ключу
+                    Scanner searchKey = new Scanner(System.in);
+                    System.out.print("Введите ключ для поиска записи: ");
+                    key = searchKey.nextLine();
+                    dictionaryInt.search(key);
+                }
+                case 4 -> {
+                    // вызов метода для добавления записи в словарь
+                    Scanner addKey = new Scanner(System.in);
+                    Scanner addValue = new Scanner(System.in);
+                    System.out.println("Введите ключ: ");
+                    key = addKey.nextLine();
+                    System.out.println("Введите значение: ");
+                    value = addValue.nextLine();
+                    dictionaryInt.add(key,value);
+                }
+                case 5 ->
+                        //возврат к выбору словарей
+                        select();
+            }
     }
 }
 
