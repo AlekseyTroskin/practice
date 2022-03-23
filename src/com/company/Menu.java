@@ -38,7 +38,7 @@ public class Menu{
                 case 1:
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File1.txt");
-                    dictionaryInt.setRegFile("[A-z]{4}");
+                    dictionaryInt.setRegFile("[A-Za-z]{4}");
                     FileService.setPathToFile("src/resources/File1.txt");
                     FileService.convertHashMap();
                     action();
@@ -107,10 +107,8 @@ public static void action() throws IOException {
                 // вызов метода для добавления записи в словарь
                 System.out.println("Введите ключ: ");
                 key = in.nextLine();
-                System.in.read();
                 System.out.println("Введите значение: ");
                 value = in.nextLine();
-
                 dictionaryInt.add();
                 break;
             case 5:

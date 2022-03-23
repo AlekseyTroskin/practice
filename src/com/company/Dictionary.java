@@ -39,19 +39,20 @@ public class Dictionary implements DictionaryInt{
     public void remove(String key) throws IOException {
         String keyDel = in.nextLine();
         String keySearch = stringListHashMap.get(keyDel);
-        if (keySearch != null){
-            stringListHashMap.remove(keyDel);
-        }
-        else {
-            System.out.println("Значения с таким ключом не найдено!");
-        }
+            if (keySearch != null){
+                stringListHashMap.remove(keyDel);
+            }
+            else {
+                System.out.println("Значения с таким ключом не найдено!");
+             }
+
         FileService.writeTxt(stringListHashMap);
     }
 
     @Override
     public void search(String key) {
-        searchWord = stringListHashMap.get(key);
-        System.out.println(Objects.requireNonNullElse(searchWord, "Значения с таким ключом не найдено!"));
+            searchWord = stringListHashMap.get(key);
+            System.out.println(Objects.requireNonNullElse(searchWord, "Значения с таким ключом не найдено!"));
     }
 
     @Override
