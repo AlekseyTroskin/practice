@@ -23,10 +23,10 @@ public class FileService {
     }
 
 
-    public static HashMap<String,String> convertHashMap() throws IOException {
+    public static HashMap<String, String> convertHashMap() throws IOException {
         HashMap<String, String> dictionary = new HashMap<>();
         Scanner filescan = new Scanner(new FileReader(FileService.pathFiles));
-        while (filescan.hasNextLine()) {
+        while (filescan.hasNext()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
         }

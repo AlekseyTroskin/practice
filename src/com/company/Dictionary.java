@@ -10,6 +10,7 @@ public class Dictionary implements DictionaryInt{
 
     private static HashMap<String, String> stringListHashMap = new HashMap<>();
     private String regFile = null;
+    private String pathFileStr = null;
     private final FileService fileService = new FileService();
 
     public static void dictionaryHashMap() throws IOException {
@@ -61,6 +62,7 @@ public class Dictionary implements DictionaryInt{
     @Override
     public void setFile(String pathFile) {
         fileService.setPathFile();
+        pathFileStr = pathFile;
     }
 
     @Override

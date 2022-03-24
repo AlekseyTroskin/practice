@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -31,6 +32,13 @@ public class Menu{
 
             switch (dictionary) {
                 case 1 -> {
+                    File file = new File("src/resources/File1.txt");
+                    if (file.createNewFile()){
+                        System.out.println("Словарь создан!");
+                    }
+                    else{
+                        System.out.println("Словарь уже существует!");
+                    }
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File1.txt");
                     dictionaryInt.setRegFile("[A-Za-z]{4}");
@@ -39,6 +47,13 @@ public class Menu{
                     action();
                 }
                 case 2 -> {
+                    File file = new File("src/resources/File2.txt");
+                    if (file.createNewFile()){
+                        System.out.println("Словарь создан!");
+                    }
+                    else{
+                        System.out.println("Словарь уже существует!");
+                    }
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File2.txt");
                     dictionaryInt.setRegFile("\\d{5}");
