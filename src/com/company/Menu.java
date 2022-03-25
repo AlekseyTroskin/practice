@@ -1,6 +1,5 @@
 package com.company;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -8,8 +7,6 @@ import java.util.*;
 public class Menu{
 
 
-
-    public static String searchWord;
     private static DictionaryInt dictionaryInt;
 
 
@@ -32,33 +29,17 @@ public class Menu{
 
             switch (dictionary) {
                 case 1 -> {
-                    File file = new File("src/resources/File1.txt");
-                    if (file.createNewFile()){
-                        System.out.println("Словарь создан!");
-                    }
-                    else{
-                        System.out.println("Словарь уже существует!");
-                    }
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File1.txt");
                     dictionaryInt.setRegFile("[A-Za-z]{4}");
-                    FileService.setPathToFile("src/resources/File1.txt");
-                    FileService.convertHashMap();
+                    dictionaryInt.dictionaryHashMap();
                     action();
                 }
                 case 2 -> {
-                    File file = new File("src/resources/File2.txt");
-                    if (file.createNewFile()){
-                        System.out.println("Словарь создан!");
-                    }
-                    else{
-                        System.out.println("Словарь уже существует!");
-                    }
                     dictionaryInt = new Dictionary();
                     dictionaryInt.setFile("src/resources/File2.txt");
                     dictionaryInt.setRegFile("\\d{5}");
-                    FileService.setPathToFile("src/resources/File2.txt");
-                    FileService.convertHashMap();
+                    dictionaryInt.dictionaryHashMap();
                     action();
                 }
                 case 3 -> {
@@ -75,7 +56,6 @@ public class Menu{
 public static void action() throws IOException {
 
     Scanner in = new Scanner(System.in);
-    Dictionary.dictionaryHashMap();
     int method = 0;
     String limit = "5";
     String choice = "";
@@ -110,14 +90,20 @@ public static void action() throws IOException {
                     Scanner del = new Scanner(System.in);
                     System.out.print("Введите ключ значения,которое хотите удалить: ");
                     key = del.nextLine();
-                    dictionaryInt.remove(key);
+                    var str = dictionaryInt.remove(key);
+                    if (str != null){
+                        System.out.println("Запись успешно удалена!");
+                    }else {
+                        System.out.println("Значения с таким ключом не найдено!");
+                    }
                 }
                 case 3 -> {
                     // вызов метода для поиска записи по ключу
                     Scanner searchKey = new Scanner(System.in);
                     System.out.print("Введите ключ для поиска записи: ");
                     key = searchKey.nextLine();
-                    dictionaryInt.search(key);
+                    var str = dictionaryInt.search(key);
+                    System.out.println(Objects.requireNonNullElseGet(str, () -> Objects.requireNonNullElse(null, "Значения с таким ключом не найдено!")));
                 }
                 case 4 -> {
                     // вызов метода для добавления записи в словарь
@@ -127,7 +113,16 @@ public static void action() throws IOException {
                     key = addKey.nextLine();
                     System.out.println("Введите значение: ");
                     value = addValue.nextLine();
-                    dictionaryInt.add(key,value);
+                    String ADD_ERROR = dictionaryInt.add(key,value);
+                    if(ADD_ERROR != null){
+                        if(ADD_ERROR.equals("value")){
+                            System.out.println("Неверное значение!");
+                        }else {
+                            System.out.println("Ключ неверный!");
+                        }
+                    }else {
+                        System.out.println("Запись успешно добавлена!");
+                    }
                 }
                 case 5 ->
                         //возврат к выбору словарей
@@ -135,8 +130,5 @@ public static void action() throws IOException {
             }
     }
 }
-
-    public void setPathFile() {
-    }
 }
 

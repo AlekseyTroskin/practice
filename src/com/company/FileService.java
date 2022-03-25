@@ -12,20 +12,18 @@ import java.util.stream.Collectors;
 public class FileService {
 
 
-    private static String pathFiles;
-    private static final Menu menu = new Menu();
+    public static HashMap<String, String> convertHashMap(String pathFileStr) throws IOException {
 
+        File file = new File(pathFileStr);
+        if (file.createNewFile()){
+            System.out.println("Словарь создан!");
+        }
+        else{
+            System.out.println("Словарь уже существует!");
+        }
 
-
-    public static void setPathToFile(String pathToFile) {
-        pathFiles = pathToFile;
-        menu.setPathFile();
-    }
-
-
-    public static HashMap<String, String> convertHashMap() throws IOException {
         HashMap<String, String> dictionary = new HashMap<>();
-        Scanner filescan = new Scanner(new FileReader(FileService.pathFiles));
+        Scanner filescan = new Scanner(new FileReader(pathFileStr));
         while (filescan.hasNext()) {
             String[] columns = filescan.nextLine().split(":");
             dictionary.put(columns[0], columns[1]);
@@ -34,15 +32,12 @@ public class FileService {
         return dictionary;
     }
 
-    public static void writeTxt(HashMap<String, String> stringListHashMap) throws IOException{
+    public static void writeTxt(HashMap<String, String> stringListHashMap, String pathFileStr) throws IOException{
 
-        Files.write(Paths.get(pathFiles),
+        Files.write(Paths.get(pathFileStr),
                 stringListHashMap.entrySet().stream().map(k->k.getKey()+":"+k.getValue()).collect(Collectors.toList()),
                 StandardCharsets.UTF_8);
 
-        Files.lines(Paths.get(pathFiles), StandardCharsets.UTF_8).forEach(System.out::println);
-    }
-
-    public void setPathFile() {
+        Files.lines(Paths.get(pathFileStr), StandardCharsets.UTF_8).forEach(System.out::println);
     }
 }
