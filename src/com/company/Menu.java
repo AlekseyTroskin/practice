@@ -113,14 +113,12 @@ public static void action() throws IOException {
                     key = addKey.nextLine();
                     System.out.println("Введите значение: ");
                     value = addValue.nextLine();
-                    String ADD_ERROR = dictionaryInt.add(key,value);
-                    if(ADD_ERROR != null){
-                        if(ADD_ERROR.equals("value")){
+                    String errorCode = dictionaryInt.add(key,value);
+                    if(errorCode == "INVALID_VALUE"){
                             System.out.println("Неверное значение!");
-                        }else {
+                    } else if (errorCode == "INVALID_KEY"){
                             System.out.println("Ключ неверный!");
-                        }
-                    }else {
+                    } else {
                         System.out.println("Запись успешно добавлена!");
                     }
                 }

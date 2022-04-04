@@ -17,20 +17,18 @@ public class Dictionary implements DictionaryInt{
 
     @Override
     public String add(String key, String value) throws IOException {
-        String ADD_ERROR;
         String regex = "[А-я]+";
         if (key.matches(regFile)) {
             if (value.matches(regex)) {
                 stringListHashMap.put(key, value);
                 FileService.writeTxt(stringListHashMap,pathFileStr);
-                ADD_ERROR = null;
+                return null;
             } else {
-                ADD_ERROR = "value";
+                return "INVALID_VALUE";
             }
         } else {
-            ADD_ERROR = "key";
+             return  "INVALID_KEY";
         }
-        return ADD_ERROR;
     }
 
     @Override
